@@ -70,10 +70,9 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (ScoreController.Instance.GetHighScore() <= m_Points)
+        if (NewScoreScript.instance.GetHighestScore() <= m_Points)
         {
-            ScoreController.Instance.SetHighScore(m_Points);
-            ScoreController.Instance.SetPlayerName(UI.playerName);
+            NewScoreScript.instance.SaveData(m_Points,UI.playerName);
         }
         m_GameOver = true;
         GameOverText.SetActive(true);

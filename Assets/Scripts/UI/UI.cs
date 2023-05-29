@@ -7,14 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI bestScoreText;
     public static string playerName;
-
-
-    private void Awake()
-    {
-        bestScoreText.text = "Best Score: " + ScoreController.Instance.GetPlayerName() + " " + ScoreController.Instance.GetHighScore();
-    }
 
 
     public void StartGame()

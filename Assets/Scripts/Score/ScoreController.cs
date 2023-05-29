@@ -25,7 +25,7 @@ public class ScoreController : MonoBehaviour
 
 
     [System.Serializable]
-    class SaveData
+    public class SaveData
     {
         public string namePlayer;
         public int highScore;
@@ -50,7 +50,20 @@ public class ScoreController : MonoBehaviour
 
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
-        Debug.Log("Score" + data.highScore + "oldu");
+
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        if (File.Exists(path))
+        {
+            Debug.Log("SetHighScoreif evet dündü");
+            Debug.Log("Score" + highScore + "oldu");
+            json = File.ReadAllText(path);
+            data = JsonUtility.FromJson<SaveData>(json);
+            Debug.Log("Set High score içindeki data bilgisi"+data.highScore);
+            highScore = data.highScore;
+        }
+
+        Debug.Log("Score" + highScore + "oldu");
     }
 
     public string GetPlayerName()
@@ -58,6 +71,7 @@ public class ScoreController : MonoBehaviour
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
+
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
@@ -69,15 +83,20 @@ public class ScoreController : MonoBehaviour
     public int GetHighScore()
     {
         string path = Application.persistentDataPath + "/savefile.json";
+
+
         if (File.Exists(path))
         {
+            Debug.Log("GetHighScoreif evet dündü");
+
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            Debug.Log("Score" + data.highScore + "oldu");
+            Debug.Log("GetHighScore " + data.highScore + "dödürdü");
+
             return data.highScore;
         }
-        Debug.Log("Score 0 oldu");
+        Debug.Log("GetHighScore 0 dödürdü");
         return 0;
 
     }
